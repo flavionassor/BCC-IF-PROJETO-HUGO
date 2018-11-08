@@ -5,7 +5,7 @@ public class teste extends javax.swing.JFrame {
 
     public teste() {
         initComponents();
-        camada1 = new Camada(2, 13);
+        camada1 = new Camada(2, 2);
         camada2 = new Camada(2, 2);
         camada3 = new Camada(1, 2);
     }
@@ -47,16 +47,27 @@ public class teste extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         MLP mlp = new MLP();
-        mlp.conexaoCamadas(camada1, camada2);
-        mlp.conexaoCamadas(camada2, camada3);
+        camada1.Neuronios[0].valor = 1;
+        camada1.Neuronios[1].valor = 1;
+        camada2.Neuronios[0].pesos[0] = 0.5;
+        camada2.Neuronios[0].pesos[1] = 0.4;
+        camada2.Neuronios[1].pesos[0] = 0.9;
+        camada2.Neuronios[1].pesos[1] = 1;
+        camada2.Neuronios[0].Bias = 0.8;
+        camada2.Neuronios[1].Bias = -0.1;
+        camada3.Neuronios[0].pesos[0] = -1.2;
+        camada3.Neuronios[0].pesos[1] = 1.1;
+        camada3.Neuronios[0].Bias = 0.3;
         
-        System.out.println("valor camada1: " + camada1.Neuronios[0].valor);
-        System.out.println("pesos camada2: " + camada2.Neuronios[1].pesos[0]);
+        mlp.atvSigmoidal(camada1, camada2);
+        mlp.atvSigmoidal(camada2, camada3);
         
-        System.out.println("valor camada2 n1: " + camada2.Neuronios[0].valor);
-        System.out.println("valor camada2 n2: " + camada2.Neuronios[1].valor);
-        System.out.println("pesos camada3 p1: " + camada3.Neuronios[0].pesos[0]);
-        System.out.println("pesos camada3 p2: " + camada3.Neuronios[0].pesos[1]);
+        System.out.println("valor: "+camada3.Neuronios[0].valor);
+        
+        
+        
+        
+        
         
         
         
