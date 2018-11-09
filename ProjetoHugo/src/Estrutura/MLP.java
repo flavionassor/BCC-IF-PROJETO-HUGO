@@ -26,10 +26,9 @@ public class MLP {
         }
     }
     
-    public void Delta(Camada camada1, Camada camada2){
-        double aux=0;
-        
-        
+    public void saidaGradiente(Camada camada){
+        double gradiente = camada.Neuronios[0].valor * (1-camada.Neuronios[0].valor) * (0 - camada.Neuronios[0].valor);
+        camada.Neuronios[0].Gradiente = gradiente;
     }
     
 }
