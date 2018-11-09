@@ -53,17 +53,18 @@ public class teste extends javax.swing.JFrame {
         camada2.Neuronios[0].pesos[1] = 0.4;
         camada2.Neuronios[1].pesos[0] = 0.9;
         camada2.Neuronios[1].pesos[1] = 1;
-        camada2.Neuronios[0].Bias = 0.8;
-        camada2.Neuronios[1].Bias = -0.1;
+        camada2.Neuronios[0].pesoBias = 0.8;
+        camada2.Neuronios[1].pesoBias = -0.1;
         camada3.Neuronios[0].pesos[0] = -1.2;
         camada3.Neuronios[0].pesos[1] = 1.1;
-        camada3.Neuronios[0].Bias = 0.3;
+        camada3.Neuronios[0].pesoBias = 0.3;
         
         mlp.atvSigmoidal(camada1, camada2);
         mlp.atvSigmoidal(camada2, camada3);
         
         System.out.println("valor: "+camada3.Neuronios[0].valor);
-        
+        System.out.println("valor: "+camada2.Neuronios[0].valor);
+        System.out.println("valor: "+camada2.Neuronios[1].valor);
         
         
         

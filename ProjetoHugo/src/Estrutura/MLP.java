@@ -17,7 +17,7 @@ public class MLP {
             for(int j=0; j<camada1.tamCamada; j++){
                 aux += camada1.Neuronios[j].valor * camada2.Neuronios[i].pesos[j];
             }
-            aux += camada2.Neuronios[i].Bias * camada2.Neuronios[i].pesoBias;
+            aux -= camada2.Neuronios[i].Bias * camada2.Neuronios[i].pesoBias;
             aux = aux * -1;// Valor do beta(Constante de inclinação)!
             aux = Math.pow(Math.E, aux);
             aux += 1;
