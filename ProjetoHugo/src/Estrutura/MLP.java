@@ -62,4 +62,12 @@ public class MLP {
             }
         }
     }
+    
+    public double erroAdaline(Camada camada1, Camada camada2){
+        double aux=0;
+        for(int i=0;i<camada1.tamCamada;i++){
+            aux += camada1.Neuronios[i].valor*camada2.Neuronios[0].pesos[i];
+        }
+        return aux;
+    }
 }

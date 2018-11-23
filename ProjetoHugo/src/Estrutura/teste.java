@@ -7,7 +7,9 @@ import javax.swing.JFileChooser;
 
 public class teste extends javax.swing.JFrame {
     Camada camada1,camada2,camada3, camada4;
+    double U,erro,aux, erroAceito = 0.3;
     public Double arquivo[][];
+    int epoca;
     
             
     public teste() {
@@ -110,73 +112,90 @@ public class teste extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         MLP mlp = new MLP();
-        
-          camada1.Neuronios[0].valor = arquivo[0][0];
-          camada1.Neuronios[1].valor = arquivo[0][1];
-          camada1.Neuronios[2].valor = arquivo[0][2];
-          camada1.Neuronios[3].valor = arquivo[0][3];
-          camada1.Neuronios[4].valor = arquivo[0][4];
-          camada1.Neuronios[5].valor = arquivo[0][5];
-          camada1.Neuronios[6].valor = arquivo[0][6];
-          camada1.Neuronios[7].valor = arquivo[0][7];
-          camada1.Neuronios[8].valor = arquivo[0][8];
-          camada1.Neuronios[9].valor = arquivo[0][9];
-          camada1.Neuronios[10].valor = arquivo[0][10];
-          camada1.Neuronios[11].valor = arquivo[0][11];
-          camada1.Neuronios[12].valor = arquivo[0][12];
+        int count=0;
+        //while(count <9){
+            camada1.Neuronios[0].valor = arquivo[0][1];
+            camada1.Neuronios[1].valor = arquivo[0][2];
+            camada1.Neuronios[2].valor = arquivo[0][3];
+            camada1.Neuronios[3].valor = arquivo[0][4];
+            camada1.Neuronios[4].valor = arquivo[0][5];
+            camada1.Neuronios[5].valor = arquivo[0][6];
+            camada1.Neuronios[6].valor = arquivo[0][7];
+            camada1.Neuronios[7].valor = arquivo[0][8];
+            camada1.Neuronios[8].valor = arquivo[0][9];
+            camada1.Neuronios[9].valor = arquivo[0][10];
+            camada1.Neuronios[10].valor = arquivo[0][11];
+            camada1.Neuronios[11].valor = arquivo[0][12];
+            camada1.Neuronios[12].valor = arquivo[0][13];
+
+  //        camada1.Neuronios[0].valor = 1;
+  //        camada1.Neuronios[1].valor = 1;
+  //        camada2.Neuronios[0].pesos[0] = 0.5;
+  //        camada2.Neuronios[0].pesos[1] = 0.4;
+  //        camada2.Neuronios[1].pesos[0] = 0.9;
+  //        camada2.Neuronios[1].pesos[1] = 1;
+  //        camada2.Neuronios[0].pesoAnterior[0] = 0.5;
+  //        camada2.Neuronios[0].pesoAnterior[1] = 0.4;
+  //        camada2.Neuronios[1].pesoAnterior[0] = 0.9;
+  //        camada2.Neuronios[1].pesoAnterior[1] = 1;
+  //        camada2.Neuronios[0].pesoBias = 0.8;
+  //        camada2.Neuronios[1].pesoBias = -0.1;
+  //        camada2.Neuronios[0].biasAnterior = 0.8;
+  //        camada2.Neuronios[1].biasAnterior = -0.1;
+  //        camada3.Neuronios[0].pesos[0] = -1.2;
+  //        camada3.Neuronios[0].pesos[1] = 1.1;
+  //        camada3.Neuronios[0].pesoAnterior[0] = -1.2;
+  //        camada3.Neuronios[0].pesoAnterior[1] = 1.1;
+  //        camada3.Neuronios[0].pesoBias = 0.3;
+  //        camada3.Neuronios[0].biasAnterior = 0.3;
+
+
+          mlp.atvSigmoidal(camada1, camada2);
+          mlp.atvSigmoidal(camada2, camada3);
+          mlp.atvSigmoidal(camada3, camada4);
+
+          mlp.saidaGradiente(camada4);       
+          mlp.ajustePeso(camada3, camada4);
+
+          mlp.saidaGradienteOculto(camada3, camada4);
+          mlp.saidaGradienteOculto(camada2, camada3);
+          mlp.ajustePeso(camada2, camada3);        
+          mlp.ajustePeso(camada1, camada2);    
+          mlp.Ajuste(camada4);
+          mlp.Ajuste(camada3);
+          mlp.Ajuste(camada2);
+
+          U = mlp.erroAdaline(camada3,camada4);
+          aux = arquivo[0][0] - U;
+          aux = Math.pow(aux, 2);
+          erro = erro + aux;       
+          System.out.println("erro: " + erro);
+          epoca = 1;
           
-//        camada1.Neuronios[0].valor = 1;
-//        camada1.Neuronios[1].valor = 1;
-//        camada2.Neuronios[0].pesos[0] = 0.5;
-//        camada2.Neuronios[0].pesos[1] = 0.4;
-//        camada2.Neuronios[1].pesos[0] = 0.9;
-//        camada2.Neuronios[1].pesos[1] = 1;
-//        camada2.Neuronios[0].pesoAnterior[0] = 0.5;
-//        camada2.Neuronios[0].pesoAnterior[1] = 0.4;
-//        camada2.Neuronios[1].pesoAnterior[0] = 0.9;
-//        camada2.Neuronios[1].pesoAnterior[1] = 1;
-//        camada2.Neuronios[0].pesoBias = 0.8;
-//        camada2.Neuronios[1].pesoBias = -0.1;
-//        camada2.Neuronios[0].biasAnterior = 0.8;
-//        camada2.Neuronios[1].biasAnterior = -0.1;
-//        camada3.Neuronios[0].pesos[0] = -1.2;
-//        camada3.Neuronios[0].pesos[1] = 1.1;
-//        camada3.Neuronios[0].pesoAnterior[0] = -1.2;
-//        camada3.Neuronios[0].pesoAnterior[1] = 1.1;
-//        camada3.Neuronios[0].pesoBias = 0.3;
-//        camada3.Neuronios[0].biasAnterior = 0.3;;;
-        
-        
-        mlp.atvSigmoidal(camada1, camada2);
-        mlp.atvSigmoidal(camada2, camada3);
-        mlp.atvSigmoidal(camada3, camada4);
-        
-        mlp.saidaGradiente(camada4);       
-        mlp.ajustePeso(camada3, camada4);
+          while(erro >= erroAceito){
+              U = mlp.erroAdaline(camada3,camada4);
+              aux = arquivo[0][0] - U;
+              aux = Math.pow(aux, 2);
+              erro = erro + aux;
+              System.out.println("erro: " + erro);
+              epoca++;
+              mlp.atvSigmoidal(camada1, camada2);
+              mlp.atvSigmoidal(camada2, camada3);
+              mlp.atvSigmoidal(camada3, camada4);
 
-        mlp.saidaGradienteOculto(camada3, camada4);
-        mlp.ajustePeso(camada2, camada3);        
-        mlp.ajustePeso(camada1, camada2);    
-        mlp.Ajuste(camada4);
-        mlp.Ajuste(camada3);
-        mlp.Ajuste(camada2);
-        while((camada4.Neuronios[0].valor > 0.15) || (camada4.Neuronios[0].valor < -0.15)){
-            mlp.atvSigmoidal(camada1, camada2);
-            mlp.atvSigmoidal(camada2, camada3);
-            mlp.atvSigmoidal(camada3, camada4);
+              mlp.saidaGradiente(camada4);       
+              mlp.ajustePeso(camada3, camada4);
 
-            mlp.saidaGradiente(camada4);       
-            mlp.ajustePeso(camada3, camada4);
-
-            mlp.saidaGradienteOculto(camada3, camada4);
-            mlp.ajustePeso(camada2, camada3);        
-            mlp.ajustePeso(camada1, camada2);    
-            mlp.Ajuste(camada4);
-            mlp.Ajuste(camada3);
-            mlp.Ajuste(camada2);
-            
-        }
-        
+              mlp.saidaGradienteOculto(camada3, camada4);
+              mlp.ajustePeso(camada2, camada3);        
+              mlp.ajustePeso(camada1, camada2);    
+              mlp.Ajuste(camada4);
+              mlp.Ajuste(camada3);
+              mlp.Ajuste(camada2);
+          }
+          System.out.println("epoca: " + epoca);
+          //count ++;
+        //}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -205,7 +224,7 @@ public class teste extends javax.swing.JFrame {
             String linha = lerArq.readLine(); // lê a primeira linha
         while (linha != null) { 
             aux = linha.split(" ");
-            for(int i=0; i<14; i++){
+            for(int i=0; i<14; i++){                
                 arquivo[l][i] = Double.parseDouble(aux[i]);
             }
             linha = lerArq.readLine(); // lê da segunda até a última linha
@@ -237,8 +256,7 @@ public class teste extends javax.swing.JFrame {
             mlp.Ajuste(camada3);
             mlp.Ajuste(camada2);
             epoca++;
-            System.out.println("epoca: " + epoca);
-            System.out.println("valor: " + camada4.Neuronios[0].valor);
+
             
         }
     }//GEN-LAST:event_jButton4ActionPerformed
