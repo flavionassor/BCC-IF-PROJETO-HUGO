@@ -41,7 +41,7 @@
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextField3" min="-2" pref="60" max="-2" attributes="0"/>
-                      <EmptySpace pref="137" max="32767" attributes="0"/>
+                      <EmptySpace pref="61" max="32767" attributes="0"/>
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -344,7 +344,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Quantidade de &#xc9;pocas: "/>
+        <Property name="text" type="java.lang.String" value="Quantidade de &#xe9;pocas no treinamento: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField3">

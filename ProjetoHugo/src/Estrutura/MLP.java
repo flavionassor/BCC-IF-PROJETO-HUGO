@@ -1,14 +1,7 @@
 package Estrutura;
 
 public class MLP {
-    
-    public void conexaoCamadas(Camada camada1, Camada camada2){
-        for(int idCamada1 = 0; idCamada1 < camada1.tamCamada; idCamada1++){
-            for(int idCamada2 = 0; idCamada2 < camada2.tamCamada; idCamada2++){
-            camada2.Neuronios[idCamada2].pesos[idCamada1] = camada1.Neuronios[idCamada1].valor;
-            }
-        }
-    }
+   
     
     public void atvSigmoidal (Camada camada1, Camada camada2){//Funçao de Ativação sigmoidal!
         double aux;
@@ -54,7 +47,7 @@ public class MLP {
             }
         }  
     }
-    public void Ajuste(Camada camada){
+    public void Ajuste(Camada camada){//Seta peso/bias anterior = peso/bias Atual!
         for(int i=0; i<camada.tamCamada;i++){
             camada.Neuronios[i].biasAnterior = camada.Neuronios[i].pesoBias;
             for(int j=0;j<camada.tamCamada;j++){
@@ -68,10 +61,6 @@ public class MLP {
         for(int i=0;i<camada1.tamCamada;i++){
             aux += camada1.Neuronios[i].valor*camada2.Neuronios[0].pesos[i];
         }
-        aux += camada2.Neuronios[0].Bias * camada2.Neuronios[0].pesoBias;
-        aux = Math.pow(Math.E, aux);
-        aux += 1;
-        aux = 1/aux;
         return aux;
     }
     
