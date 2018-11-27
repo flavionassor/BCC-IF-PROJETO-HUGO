@@ -8,7 +8,7 @@ public class Neuronio {
     
     public Neuronio(int tamCamadaAnterior){     
         Random r = new Random();
-        double valorDinamico = 0 + (1 - 0) * r.nextDouble();
+        double valorDinamico = -1 + (1 - -1) * r.nextDouble();
         pesos = new double[tamCamadaAnterior];
         pesoAnterior = new double[tamCamadaAnterior];
         pesoBias = valorDinamico;

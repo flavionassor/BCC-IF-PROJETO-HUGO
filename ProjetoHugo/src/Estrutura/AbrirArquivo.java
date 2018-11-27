@@ -46,6 +46,8 @@ public class AbrirArquivo extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.setText("C:\\Users\\13161000252\\Documents\\GitHub\\BCC-IF-PROJETO-HUGO\\ProjetoHugo\\src\\wine.data.txt");
+
         jButton2.setText("Abrir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

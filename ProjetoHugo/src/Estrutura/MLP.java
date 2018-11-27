@@ -68,6 +68,25 @@ public class MLP {
         for(int i=0;i<camada1.tamCamada;i++){
             aux += camada1.Neuronios[i].valor*camada2.Neuronios[0].pesos[i];
         }
+        aux += camada2.Neuronios[0].Bias * camada2.Neuronios[0].pesoBias;
+        aux = Math.pow(Math.E, aux);
+        aux += 1;
+        aux = 1/aux;
         return aux;
     }
+    
+    public int classificar(double valor){
+        double valorclass = valor * 3;
+        if(valorclass < 1  ){
+            return 1;
+        }
+        if(valorclass < 2  ){
+            return 2;
+        }
+        if(valorclass < 3  ){
+            return 3;
+        }
+        return 0;
+    }
+    
 }
