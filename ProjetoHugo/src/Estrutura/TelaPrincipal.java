@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Estrutura;
 
 import java.text.DecimalFormat;
@@ -10,10 +5,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author 13161000252
- */
 public class TelaPrincipal extends javax.swing.JFrame {
     Camada camada1,camada2,camada3, camada4;
     double U,erro,aux, erroAceito = 0.3;
@@ -24,12 +15,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {//construtor padrão!
         arquivo = new Double[180][180];
         initComponents();
-        camada1 = new Camada(13, 3);
-        camada2 = new Camada(3, 13);
-        camada3 = new Camada(3, 3);
-        camada4 = new Camada(1, 3);
+        camada1 = new Camada(13, 2);
+        camada2 = new Camada(2, 13);
+        camada3 = new Camada(2, 2);
+        camada4 = new Camada(1, 2);
     }
     public TelaPrincipal(Double arquivo[][]) {//Construtor para inicialização dos dados no arquivo!
+        Random r = new Random();
+        double valorDinamico = -1 + (1 - -1) * r.nextDouble();
         acerto = (double) 0;
         epocaT =0;//Epoca Treinamento
         vetorT = new ArrayList();//Vetor Treinamento
@@ -42,26 +35,86 @@ public class TelaPrincipal extends javax.swing.JFrame {
         for(int i=0;i<180;i++){
             model.addRow(linha);
             model2.addRow(linha);
-        }      
-        //fim criação tabela!
+        }  
+        //fim criação tabela
+        
+        //Inicio da criação das camadas!
+        camada1 = new Camada(13, 13);
+        camada2 = new Camada(2, 13);
+        camada3 = new Camada(2, 2);
+        camada4 = new Camada(1, 2); 
+        //fim criação das camadas!
+        
         int count = 1; //Contador para identificar Amostras!     
         //Inicio Set de dados dentro da tabela!
-        for(int i=0;i<180;i++){
+        int j=2;
+        for( j=j;j<15;j++){
+                camada2.Neuronios[0].pesos[j-2] = (1 - 0) * r.nextDouble();
+                camada2.Neuronios[0].pesoAnterior[j-2] = camada2.Neuronios[0].pesos[j-2];
+            }
+            for( j=j;j<28;j++){
+                camada2.Neuronios[1].pesos[j-15] = (1 - 0) * r.nextDouble();
+                camada2.Neuronios[1].pesoAnterior[j-15] = camada2.Neuronios[0].pesos[j-15];
+            }
+            for( j=j;j<30;j++){
+                camada3.Neuronios[0].pesos[j-28] = (1 - 0) * r.nextDouble();
+                camada3.Neuronios[0].pesoAnterior[j-28] = camada2.Neuronios[0].pesos[j-28];
+            }
+            for( j=j;j<32;j++){
+                camada3.Neuronios[1].pesos[j-30] = (1 - 0) * r.nextDouble();
+                 camada3.Neuronios[1].pesoAnterior[j-30] = camada2.Neuronios[0].pesos[j-30];
+            }
+            for( j=j;j<34;j++){
+                camada4.Neuronios[0].pesos[j-32] = (1 - 0) * r.nextDouble();
+                camada4.Neuronios[0].pesoAnterior[j-32] = camada2.Neuronios[0].pesos[j-32];
+            }
+            camada2.Neuronios[0].Gradiente = -1 + (1 - -1) * r.nextDouble();
+            camada2.Neuronios[1].Gradiente = -1 + (1 - -1) * r.nextDouble();
+            camada3.Neuronios[0].Gradiente = -1 + (1 - -1) * r.nextDouble();
+            camada3.Neuronios[1].Gradiente = -1 + (1 - -1) * r.nextDouble();
+            camada4.Neuronios[0].Gradiente = -1 + (1 - -1) * r.nextDouble();
+            
+            camada2.Neuronios[0].pesoBias = -1 + (1 - -1) * r.nextDouble();
+            camada2.Neuronios[1].pesoBias = -1 + (1 - -1) * r.nextDouble();
+            camada3.Neuronios[0].pesoBias = -1 + (1 - -1) * r.nextDouble();
+            camada3.Neuronios[1].pesoBias = -1 + (1 - -1) * r.nextDouble();
+            camada4.Neuronios[0].pesoBias = -1 + (1 - -1) * r.nextDouble();
+ 
+        for(int i=0;i<178;i++){            
             jTable1.setValueAt(count, i, 0);
             jTable2.setValueAt(count, i, 0);
             count++;
-            for(int j=0;j<14;j++){
-                jTable1.setValueAt(this.arquivo[i][j], i, j+1);
+            jTable1.setValueAt(this.arquivo[i][0], i, 1);            
+            j=2;
+            for( j=j;j<15;j++){
+//                camada2.Neuronios[0].pesos[j-2] = (1 - 0) * r.nextDouble();
+//                camada2.Neuronios[0].pesoAnterior[j-2] = camada2.Neuronios[0].pesos[j-2];
+                jTable1.setValueAt(camada2.Neuronios[0].pesos[j-2], i, j);
             }
+            for( j=j;j<28;j++){
+//                camada2.Neuronios[1].pesos[j-15] = (1 - 0) * r.nextDouble();
+//                camada2.Neuronios[1].pesoAnterior[j-15] = camada2.Neuronios[0].pesos[j-15];
+                jTable1.setValueAt(camada2.Neuronios[1].pesos[j-15], i, j);
+            }
+            for( j=j;j<30;j++){
+//                camada3.Neuronios[0].pesos[j-28] = (1 - 0) * r.nextDouble();
+//                camada3.Neuronios[0].pesoAnterior[j-28] = camada2.Neuronios[0].pesos[j-28];
+                jTable1.setValueAt(camada3.Neuronios[0].pesos[j-28], i, j);
+            }
+            for( j=j;j<32;j++){
+//                camada3.Neuronios[1].pesos[j-30] = (1 - 0) * r.nextDouble();
+//                camada3.Neuronios[1].pesoAnterior[j-30] = camada2.Neuronios[0].pesos[j-30];
+                jTable1.setValueAt(camada3.Neuronios[1].pesos[j-30], i, j);
+            }
+            for( j=j;j<34;j++){
+//                camada4.Neuronios[0].pesos[j-32] = (1 - 0) * r.nextDouble();
+//                camada4.Neuronios[0].pesoAnterior[j-32] = camada2.Neuronios[0].pesos[j-32];
+                jTable1.setValueAt(camada4.Neuronios[0].pesos[j-32], i, j);
+            }
+            
         }
         //Fim de set dados dentro da tabela!
         
-        //Inicio da criação das camadas!
-        camada1 = new Camada(13, 3);
-        camada2 = new Camada(3, 13);
-        camada3 = new Camada(3, 3);
-        camada4 = new Camada(1, 3);        
-        //fim criação das camadas!
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -71,14 +124,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,11 +154,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Item", "Classe", "Álcool", "Ácido  málico", "Ash ", "Alcalinidade  do  ash", "Magnésio", "Fenóis  totais", "Flavonóides", "Fenóis  não  flavonóideis", "Proantocianinas", "Intensidade  da  cor", "Matiz", "Percentuais  de  outros  vinhos  diluídos", "Prolina"
+                "Item", "Classe", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n3", "n3", "n4", "n4", "n5", "n5"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -113,24 +166,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Item", "Classe", "Álcool", "Ácido  málico", "Ash ", "Alcalinidade  do  ash", "Magnésio", "Fenóis  totais", "Flavonóides", "Fenóis  não  flavonóideis", "Proantocianinas", "Intensidade  da  cor", "Matiz", "Percentuais  de  outros  vinhos  diluídos", "Prolina"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTable2);
 
         jLabel1.setText("Taxa Acerto: ");
 
@@ -143,6 +178,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel3.setText("Quantidade de épocas no treinamento: ");
 
         jTextField3.setEnabled(false);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item", "Classe", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n1", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n2", "n3", "n3", "n4", "n4", "n5", "n5"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,7 +222,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addContainerGap())
-                    .addComponent(jScrollPane2)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +242,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -249,6 +302,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         long tempoInicio = System.currentTimeMillis();//Inicializando contagem do tempo de processamento!
 
+
         while(!vetor.isEmpty()){//Vetor de itens para ser utilizado no treinamento!
             
             //Setando valores no neuronio sensorial!
@@ -280,7 +334,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 //            System.out.println("erro: " + erro);
             
             //Calculo do gradiente do neuronio da ultima camada!
-            mlp.saidaGradiente(camada4); 
+            mlp.saidaGradiente(camada4, arquivo[(Integer) vetor.get(0)][0]); 
             //fim
             
             //ajusta pesso entre as camadas com gradiente ja calculado!
@@ -303,8 +357,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             mlp.Ajuste(camada2);
             //fim
             
+                    
             epoca = 1;
-            while(epoca < 4){
+            while(epoca < 200){
                 epoca++;
                 //Atividade sigmoidal entre camadas!
                 mlp.atvSigmoidal(camada1, camada2);
@@ -319,7 +374,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     //            System.out.println("erro: " + erro);
 
                 //Calculo do gradiente do neuronio da ultima camada!
-                mlp.saidaGradiente(camada4); 
+                mlp.saidaGradiente(camada4,arquivo[(Integer) vetor.get(0)][0]); 
                 //fim
 
                 //ajusta pesso entre as camadas com gradiente ja calculado!
@@ -340,14 +395,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 mlp.Ajuste(camada4);
                 mlp.Ajuste(camada3);
                 mlp.Ajuste(camada2);
-                //fim
+                //fim                
             }            
             vetor.remove(0);//Remove do vetor auxiliar item de treinamento já utilizado!
-            epocaT += 4;
+            epocaT += 200;
         }
         jTextField2.setText(Long.toString(System.currentTimeMillis()-tempoInicio)+ "ms");//Fim calculo tempo de processamento!
         jTextField3.setText(Integer.toString(epocaT));//fim calculo de epocas!
-        System.out.println("valor " + camada4.Neuronios[0].valor);
+        System.out.println("valor pos treino!" + camada4.Neuronios[0].valor);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -377,8 +432,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 camada1.Neuronios[12].valor = arquivo[i][13];
                 
                 epoca =0;
-                
-                while(epoca < 2){
+                while(epoca < 5){
                     //Atividade sigmoidal entre camadas!
                     mlp.atvSigmoidal(camada1, camada2);
                     mlp.atvSigmoidal(camada2, camada3);
@@ -392,7 +446,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //            System.out.println("erro: " + erro);
 
                     //Calculo do gradiente do neuronio da ultima camada!
-                    mlp.saidaGradiente(camada4); 
+                    mlp.saidaGradiente(camada4,arquivo[i][0]); 
                     //fim
 
                     //ajusta pesso entre as camadas com gradiente ja calculado!
@@ -407,20 +461,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     //Calculo dos Gradientes camada oculta
                     mlp.saidaGradienteOculto(camada2, camada3); 
                     //Ajusta Peso Apos o calculo do gradiente
-                    mlp.ajustePeso(camada1, camada2);  
+                    mlp.ajustePeso(camada1, camada2); 
 
                     //Seta Valores anteriores <- Atuais
                     mlp.Ajuste(camada4);
                     mlp.Ajuste(camada3);
                     mlp.Ajuste(camada2);
+                    
                     //fim
                     epoca++;
-                }                
+                    int j=2;
+                    for( j=j;j<15;j++){
+                        jTable2.setValueAt(camada2.Neuronios[0].pesos[j-2], i, j);
+                    }
+                    for( j=j;j<28;j++){
+                        jTable2.setValueAt(camada2.Neuronios[1].pesos[j-15], i, j);
+                    }
+                    for( j=j;j<30;j++){
+                        jTable2.setValueAt(camada3.Neuronios[0].pesos[j-28], i, j);
+                    }
+                    for( j=j;j<32;j++){
+                        jTable2.setValueAt(camada3.Neuronios[1].pesos[j-30], i, j);
+                    }
+                    for( j=j;j<34;j++){
+                        jTable2.setValueAt(camada4.Neuronios[0].pesos[j-32], i, j);
+                    }       
+                }
+                //System.out.println("valor " + camada4.Neuronios[0].valor);
+     
                 
                 //Classificação!
                 int classificacao =0;                
                 classificacao = mlp.classificar(camada4.Neuronios[0].valor);
                 arquivo[i][0]  = (double) classificacao;
+                jTable2.setValueAt(arquivo[i][0], i, 1);
                 //fim
             }
             verif = 0; 
@@ -465,40 +539,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaPrincipal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -507,7 +548,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
